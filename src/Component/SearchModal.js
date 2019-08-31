@@ -43,6 +43,7 @@ export default class SearchModal extends Component {
                 ref={'myModal'}
                 style={styles.container}
                 position = 'center'
+                coverScreen = {true}
                 onClosed={() => {this.setState({keyword : ''})}}
                 backdrop = {true}
             >

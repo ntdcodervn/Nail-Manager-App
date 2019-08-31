@@ -33,7 +33,7 @@ export default class AddModal extends Component {
                 ref={'myModal'}
                 style={styles.container}
                 position = 'center'
-
+                coverScreen={true}
                 backdrop = {true}
                 
             >
