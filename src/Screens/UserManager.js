@@ -6,7 +6,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import UserItem from '../Component/UserItem';
 import AddModal from './../Component/AddModal';
 import SearchModal from './../Component/SearchModal'
-
+import Foundation from 'react-native-vector-icons/Foundation'
 
 
 export default class UserManager extends Component {
@@ -58,6 +58,12 @@ export default class UserManager extends Component {
         })
     }
 
+    _refreshListData = () => {
+        this.setState({
+            listData : this.state.listDataAll,
+        })
+    }
+
     render() {
         return (
             <View style={{width : '100%', height : '100%'}}>
@@ -103,6 +109,15 @@ export default class UserManager extends Component {
 
                     <View style={styles.user_manager}>
                         <Text style={{ fontSize : 16 , color : '#340021'}}>User Manager</Text>
+                        <TouchableOpacity 
+                            style={styles.refreshButton}
+                            onPress={() => {this._refreshListData()}}
+                        >
+                            <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} style={styles.boxRefreshButton} colors={['#FF00A9' ,'#FF3D81']}>
+                                <Foundation name='refresh' style={{marginRight : 5, fontSize : 15}} color={'#FFFFFF'} ></Foundation>
+                                <Text style={{ fontSize : 13 , color : '#FFFFFF'}}>Refresh</Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
                     </View>
                     <FlatList
                     
@@ -184,12 +199,29 @@ const styles = StyleSheet.create({
         marginLeft : 34
     },
     user_manager : {
-        width : "100%",
+        flexDirection : 'row',
+        width : "90%",
         justifyContent : 'flex-start',
-        left : "5%",
+        
         marginTop : 42,
         marginBottom : 18,
+        position : 'relative'
+    },
+    refreshButton : {
+        position : "absolute",
+        right : 0,
+        width : 90,
+        height : 30,
         
+
+    },
+    boxRefreshButton : {
+        width : "100%",
+        height : "100%",
+        justifyContent : 'center',
+        alignItems : 'center',
+        borderRadius : 20,
+        flexDirection : 'row'
     },
     flat_list : {
         width : '90%'

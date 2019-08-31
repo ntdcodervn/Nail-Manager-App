@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 import Bill from './../Screens/Bill';
 import UserManager from './../Screens/UserManager';
+import Order from './../Screens/Order'
 
 
 const BillStack = createStackNavigator({
@@ -31,10 +32,10 @@ const bottomTagNavigator = createMaterialBottomTabNavigator({
             tilte : 'Home'
         }
     },
-    Bill : {
-        screen : Bill,
+    Order : {
+        screen : Order,
         navigationOptions :{
-            tilte : 'Bill'
+            tilte : 'Order'
         }
     }
 },{

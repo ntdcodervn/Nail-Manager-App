@@ -14,14 +14,17 @@ export default class SearchModal extends Component {
         let listDataWasSearch = [];
         console.log(this.props.listDataAll);
         console.log(keyword)
+        
         if(keyword === '')
         {
             listDataWasSearch = this.props.listDataAll;
         }
         else{
+            let keywordChange = keyword.toLowerCase();
             listDataWasSearch = this.props.listDataAll.filter((value,key) => {
                 let string = value.nameUser + value.email + value.point;
-                return string.indexOf(keyword) !== -1;
+                let stringLowerCase = string.toLowerCase();
+                return stringLowerCase.indexOf(keywordChange) !== -1;
             })
         }
         
@@ -46,7 +49,7 @@ export default class SearchModal extends Component {
                 <TextInput
                     placeholder='Input keyword'
                     style={{width : '70%', paddingLeft : 10, backgroundColor : 'transparent'}}
-                    onChangeText={(value) => {this.setState({keyword : value })}}
+                    onChangeText={(value) => {this.setState({keyword : value}); this.onSearchData(this.state.keyword)}}
                 >
 
                 </TextInput>
