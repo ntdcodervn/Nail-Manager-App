@@ -2,28 +2,24 @@ import {
     createStackNavigator, 
     createAppContainer,
     createBottomTabNavigator, 
+    createSwitchNavigator
  
 } from 'react-navigation';
-import React, { Component } from 'react'
-import {StyleSheet} from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
-import Bill from './../Screens/Bill';
+import LogIn from './../Screens/LogIn';
 import UserManager from './../Screens/UserManager';
-import Order from './../Screens/Order'
+import Order from './../Screens/Order';
+import OrderOld from './../Screens/OrderOld';
+import Setting from './../Screens/Setting';
 
 
-const BillStack = createStackNavigator({
-    Bill : {
-        screen : Bill
+const loginNav = createStackNavigator({
+    LogIn : {
+        screen : LogIn
     }
 });
 
-const BillNotPayStack = createStackNavigator({
-    UserManager : {
-        screen : UserManager
-    }
-});
+
 
 const bottomTagNavigator = createMaterialBottomTabNavigator({
     Home : {
@@ -35,7 +31,19 @@ const bottomTagNavigator = createMaterialBottomTabNavigator({
     Order : {
         screen : Order,
         navigationOptions :{
-            tilte : 'Order'
+            tilte : 'New Order'
+        }
+    },
+    OrderOld : {
+        screen : OrderOld,
+        navigationOptions :{
+            tilte : 'Old Order'
+        }
+    },
+    Setting : {
+        screen : Setting,
+        navigationOptions :{
+            tilte : 'Setting'
         }
     }
 },{
@@ -51,7 +59,12 @@ const bottomTagNavigator = createMaterialBottomTabNavigator({
     
 });
 
-const MainContainer = createAppContainer(bottomTagNavigator);
+const appNavigation = createSwitchNavigator({
+    LogInScreen : loginNav,
+    Home : bottomTagNavigator
+})
+
+const MainContainer = createAppContainer(appNavigation);
 
 
 export default MainContainer;

@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import LinearGradient from 'react-native-linear-gradient'
 import { FlatList } from 'react-native-gesture-handler';
-import OrderModal from './../Component/OrderModal';
+import OrderModalOld from './../Component/OrderModalOld';
 import SearchModal from './../Component/SearchModal';
 import OrderItem from './../Component/OrderItem';
 import DateTimePicker from "react-native-modal-datetime-picker";
@@ -15,9 +15,9 @@ import StoreData from '@react-native-community/async-storage'
 
 export default class Order extends Component {
     static navigationOptions = {
-        title: 'New Order',
+        title: 'Order Old',
         tabBarIcon : ({tintColor}) => {
-            return <Icon name='calendar-alt' size={20} color={tintColor} />
+            return <Icon name='business-time' size={20} color={tintColor} />
         }
     };
 
@@ -54,7 +54,13 @@ export default class Order extends Component {
         });
         
         if(getDataAdmin.data.role === 'admin'){
-            let listOrder = await axios(`${BASE_URL}api/booking/getAllBook?page=0&status=0`,{
+            let listOrder = await axios(`${BASE_URL}api/booking/getAllBook?page=0&status=1`,{
+                headers :{
+                    'x-auth-token' : token
+                }
+            });
+
+            let listOrderDestroy = await axios(`${BASE_URL}api/booking/getAllBook?page=0&status=-1`,{
                 headers :{
                     'x-auth-token' : token
                 }
@@ -62,7 +68,7 @@ export default class Order extends Component {
             
             
             await this.setState({
-                listDataAll :listOrder.data.listBooking,
+                listDataAll :listOrder.data.listBooking.concat(listOrderDestroy.data.listBooking),
                 dataAdmin : getDataAdmin.data,
                 page : 1
             })
@@ -81,12 +87,10 @@ export default class Order extends Component {
     _onPressAdd = (item) => {
         let items = {
             ...item.users, 
-            total : item.total,
-            idBooking : item._id,
-            status : item.status
+            total : item.total
         }
-        this.refs.OrderModal.setImage(items);
-        this.refs.OrderModal.showOrderModal();
+        this.refs.OrderModalOld.setImage(items);
+        this.refs.OrderModalOld.showOrderModalOld();
     }
 
     _onPressSearchModal = () => {
@@ -106,7 +110,7 @@ export default class Order extends Component {
       handelLoadMore = async ()  => {
         
         let token = await StoreData.getItem('token');
-        const listDataUser = await axios.get(`${BASE_URL}api/users//getAllUser?page=${this.state.page}&status=0`,{
+        const listDataUser = await axios.get(`${BASE_URL}api/users//getAllUser?page=${this.state.page}&status=1`,{
             headers : {
                 'x-auth-token' : token
             }
@@ -155,12 +159,11 @@ export default class Order extends Component {
                         >
 
                         </SearchModal>
-                        <OrderModal
-                            ref={'OrderModal'}
-                            _refreshListData = { this._refreshListData}
+                        <OrderModalOld
+                            ref={'OrderModalOld'}
                             >
 
-                         </OrderModal>
+                         </OrderModalOld>
                          <DateTimePicker
                             isVisible={this.state.isDateTimePickerVisible}
                             onConfirm={this.handleDatePicked}
@@ -184,7 +187,7 @@ export default class Order extends Component {
                 
                 <View style={styles.container_inner}>
                     <View style={styles.headers}>
-                        <Text style={{position :'absolute', bottom :0 , left : "5%", fontSize : 24 , color : '#340021'}}>New Order</Text>
+                        <Text style={{position :'absolute', bottom :0 , left : "5%", fontSize : 24 , color : '#340021'}}>Old Order</Text>
                         <TouchableOpacity 
                             style={{position :'absolute', bottom :0 , right : "5%"}}
                             onPress={() => {this._onPressSearchModal()}}
@@ -199,7 +202,7 @@ export default class Order extends Component {
                                     style={{fontSize : 20, color : '#F4EFF2' , marginBottom : 9}}>
                                     Hi {this.state.dataAdmin.name}
                                 </Text>
-                                <Text style={{fontSize : 16, color : '#F4EFF2'}}>{this.state.listData.length} New Order</Text>
+                                <Text style={{fontSize : 16, color : '#F4EFF2'}}>{this.state.listData.length} Old Order</Text>
                         </View>
                         <Image
                             source={{ uri: BASE_URL + this.state.dataAdmin.avatar }}

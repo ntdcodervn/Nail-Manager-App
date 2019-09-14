@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View,Image, TouchableOpacity } from 'react-native'
-
+import BASE_URL from './../Util/global';
 export default class UserItem extends Component {
 
     /* props : {
@@ -12,9 +12,9 @@ export default class UserItem extends Component {
             <View style={styles.container}>
                 
                 <Text  style={text_style(16,'#070606',10)}> {this.props.item.key} </Text>
-                <Image source={{uri : this.props.item.image}} style={{width : 46, height : 46, borderRadius : 10}}></Image>
+                <Image source={{uri : BASE_URL + this.props.item.avatar}} style={{width : 46, height : 46, borderRadius : 10}}></Image>
                 <View style={styles.col_name_email}>
-                    <Text style={text_style(16,'#340021')}>{this.props.item.nameUser}</Text>
+                    <Text style={text_style(16,'#340021')}>{this.props.item.name}</Text>
                     <Text style={text_style(16,'#340021')}>{this.props.item.email}</Text>
                 </View>
                 <View style={styles.col_point}>

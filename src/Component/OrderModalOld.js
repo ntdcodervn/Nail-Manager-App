@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View,Dimensions, Image,Button , TouchableOpacity} from 'react-native';
+import { Text,Alert, StyleSheet, View,Dimensions, Image,Button , TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modalbox';
-import LinearGradient from 'react-native-linear-gradient';
-import BASE_URL from './../Util/global'
+import LinearGradient from 'react-native-linear-gradient'
+import BASE_URL from './../Util/global';
+import axios from 'axios';
+import DataStore from '@react-native-community/async-storage';
 
 var screen = Dimensions.get('window');
 
-export default class AddModal extends Component {
+export default class OrderModal extends Component {
 
-    showAddModal = () => {
+    showOrderModalOld = () => {
         this.refs.myModal.open();
     }
 
@@ -16,15 +18,47 @@ export default class AddModal extends Component {
         this.setState({
             item : item
         })
+
+    }
+
+    
+    
+    handelActionStatusOrder = async (status) => {
+        const token = await DataStore.getItem('token');
+        const changeStatusPay = await axios.post(`${BASE_URL}api/admin/changeStatusBooking`,{
+            idBooking : this.state.item.idBooking,
+            status : status
+        },{
+            headers : {
+                'x-auth-token' : token
+            },
+            
+        })
+        console.log(changeStatusPay);
+        this.props._refreshListData();
     }
 
     closeModal = () => {
+       
         this.refs.myModal.close();
+        
     }
 
     state = {
         item : {
             image : ''
+        }
+    }
+    componentWillMount() {
+        
+    }
+    setStatusReturnString = () => {
+        if(this.state.item.status === -1) {
+            return 'Cancelled'
+        }
+        else(this.state.item.status === 1)
+        {
+            return 'Paid'
         }
     }
 
@@ -34,16 +68,17 @@ export default class AddModal extends Component {
                 ref={'myModal'}
                 style={styles.container}
                 position = 'center'
-                coverScreen={true}
+                coverScreen = {true}
                 backdrop = {true}
                 
             >
                 <View style={styles.leftArticle}>
-                    <Text style={text_style(24,'#340021',0,12)}>User Details</Text>
+                    <Text style={text_style(24,'#340021',0,12)}>Order Details</Text>
                     <Text style={text_style(14,'#340021',0,12)}>Name : {this.state.item.name}</Text>
                     <Text style={text_style(14,'#340021',0,12)}>Email : {this.state.item.email}</Text>
+                    <Text style={text_style(14,this.state.item === 1 ? '#ba000d' : '#4b830d' ,0,12)}>Status : {this.setStatusReturnString()}</Text>
                     <Text style={text_style(14,'#340021',0,12)}>Coupons : {this.state.item.coupons}%</Text>
-                    <Text style={text_style(14,'#340021',0,12)}>Point : {this.state.item.point}</Text>
+                    <Text style={text_style(14,'#340021',0,12)}>Price : {this.state.item.total}$ / discount {this.state.item.coupons}% </Text>
                     
                 </View>
                 <View
@@ -53,7 +88,7 @@ export default class AddModal extends Component {
                             source={{ uri: BASE_URL + this.state.item.avatar }}
                             style={styles.avatar}
                         ></Image>
-                       
+                        <View style={styles.buttonContainerClose}>
                             <TouchableOpacity
                                 style = {styles.closeButton}
                                 onPress={() => {this.closeModal()}}
@@ -69,7 +104,9 @@ export default class AddModal extends Component {
                                     <Text style={text_style(15,'#FFFFFF')}>Close</Text>
                                     </LinearGradient>
                             </TouchableOpacity>
-                        
+
+                            
+                            </View>
 
                 </View>
             </Modal>
@@ -104,10 +141,11 @@ const styles = StyleSheet.create({
         borderRadius : 32
     },
     rightArticle : {
-        width : '20%',
+        width : '35%',
         height : '100%',
         flexDirection : 'column',
         justifyContent : 'space-around',
+        alignItems:'center',
         overflow : 'hidden',
        
         
@@ -118,6 +156,14 @@ const styles = StyleSheet.create({
     closeButton : {
         width : 65,
         height : 35,
+       marginLeft:2
+       
+    },
+    buttonContainerClose : {
+        
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
        
        
     }

@@ -22,7 +22,7 @@ export default class SearchModal extends Component {
         else{
             let keywordChange = keyword.toLowerCase();
             listDataWasSearch = this.props.listDataAll.filter((value,key) => {
-                let string = value.nameUser + value.email + value.point;
+                let string = value.name + value.email + value.point;
                 let stringLowerCase = string.toLowerCase();
                 return stringLowerCase.indexOf(keywordChange) !== -1;
             })
