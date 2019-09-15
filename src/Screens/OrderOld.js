@@ -15,7 +15,7 @@ import StoreData from '@react-native-community/async-storage'
 
 export default class Order extends Component {
     static navigationOptions = {
-        title: 'Order Old',
+        title: 'Old Order',
         tabBarIcon : ({tintColor}) => {
             return <Icon name='business-time' size={20} color={tintColor} />
         }
