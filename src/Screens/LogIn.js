@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image, TextInput,TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, View, Image, TextInput,TouchableOpacity,ScrollView } from 'react-native'
 
 import axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
 import BASE_URL from './../Util/global';
 import AsyncStorage from '@react-native-community/async-storage'
+import ForgotPasswordModal from './../Component/ForgotPassword/ForgotPasswordModal';
 
 
 
@@ -46,6 +47,8 @@ export default class Bill extends Component {
         
     }
 
+    
+
     async componentDidMount() {
         const token = await AsyncStorage.getItem("token");
         if(token !== null)
@@ -54,9 +57,24 @@ export default class Bill extends Component {
         }
     }
 
+    _onPressShowModal = () => {
+        this.refs.ForgotPModal.showForgotPModal();
+    }
+
     render() {
         return (
+            <ScrollView style={{
+                width : "100%",
+                height : "100%",
+               
+            }}>
+                
             <View style={styles.container}>
+                <ForgotPasswordModal
+                    ref={'ForgotPModal'}
+                >
+
+                </ForgotPasswordModal>
                 <Image
                     source={require('../../assets/Image/project.png')}
                     style={{ width: 200, height: 200 }}
@@ -86,10 +104,14 @@ export default class Bill extends Component {
                     
                     </LinearGradient>
                 </TouchableOpacity>
-
+                <TouchableOpacity onPress={() => {this._onPressShowModal()}} style={{marginBottom : 30,marginTop : 5}}>
+                    <Text style={{fontSize:15}}>Forgot password?</Text>
+                </TouchableOpacity>
+               
                 
 
             </View>
+            </ScrollView>
         )
     }
 }
@@ -131,6 +153,7 @@ const styles = StyleSheet.create({
         width : '80%',
         height : 51,
         borderRadius : 26,
-        marginTop : 98
+        marginTop : 40,
+       
     }
 })

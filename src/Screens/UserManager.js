@@ -14,6 +14,7 @@ import StoreData from '@react-native-community/async-storage'
 
 
 
+
 export default class UserManager extends Component {
     static navigationOptions = {
         title: 'Home',
@@ -105,6 +106,7 @@ export default class UserManager extends Component {
             })
         }
         else {
+            await StoreData.removeItem('token');
             this.props.navigation.navigate("LogInScreen");
         }
         

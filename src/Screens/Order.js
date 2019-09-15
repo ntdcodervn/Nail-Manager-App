@@ -187,7 +187,7 @@ export default class Order extends Component {
                         <Text style={{position :'absolute', bottom :0 , left : "5%", fontSize : 24 , color : '#340021'}}>New Order</Text>
                         <TouchableOpacity 
                             style={{position :'absolute', bottom :0 , right : "5%"}}
-                            onPress={() => {this._onPressSearchModal()}}
+                            // onPress={() => {this._onPressSearchModal()}}
                         >
                             <Icon style={{ fontSize : 20 , color : '#340021'}} name='search' size={30} ></Icon>
                         </TouchableOpacity>
