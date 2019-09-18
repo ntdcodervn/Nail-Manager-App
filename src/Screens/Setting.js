@@ -65,6 +65,7 @@ export default class Setting extends Component {
 
     render() {
         return (
+            <ScrollView style={{width:'100%',height:'100%'}}>
             <View style={styles.container}>
                 
                  <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} style={styles.containerRowOne} colors={['#FF00A9' ,'#FF3D81']}>
@@ -91,12 +92,13 @@ export default class Setting extends Component {
                     </TouchableOpacity>
                     </View>
                 </LinearGradient>
-                <ScrollView style={styles.containerManager}>
+                <View style={styles.containerManager}>
                        {this._renderComponentPage()}
-                </ScrollView>
+                </View>
                
                 
             </View>
+            </ScrollView>
         )
     }
 }
