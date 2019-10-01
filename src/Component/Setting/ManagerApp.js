@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View,TextInput,TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, View,TextInput,TouchableOpacity,Alert } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient';
 import Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconFA  from 'react-native-vector-icons/FontAwesome';
@@ -15,7 +15,34 @@ export default class ManagerApp extends Component {
 
     state = {
         emailTo : '',
+        body : ''
     
+    }
+
+    sendNofi = async () => {
+       
+        Alert.alert(
+            'Notification',
+            'Are you sure you want to push this notification ?',
+            [
+                {  
+                    text: 'No',  
+                    onPress: () => console.log('Cancel Pressed'),  
+                    style: 'cancel',  
+                },  
+                {text: 'Yes', onPress: async () => {
+                    const send = await axios.get(`http://207.148.89.170:5000/api/push?key=AIzaSyDuWlCD_T3YgxiQyuUDLmDTinK6kW5Veec&title=MyNails2Go Notification&body=${this.state.body}&topic=all`);
+                    if(send.data.message_id)
+                    {
+                        alert('Push notification successful');
+                    }
+                    else {
+                        alert('Push notification failed, please try again !')
+                    }
+                }},  
+            ]
+
+        )
     }
 
     sendMail = async () => {
@@ -73,11 +100,11 @@ export default class ManagerApp extends Component {
                         fontWeight : 'bold'}}>  Push Notifications  </Text>
                     </View>
                     <Text style={styles.textStyle}>- Content</Text>
-                    <TextInput style={styles.TextInputStyle}/>
+                    <TextInput style={styles.TextInputStyle} onChangeText={(value) => {this.setState({body : value})}}/>
                     
                     <TouchableOpacity 
                     style={styles.SignInButton} 
-                        onPress = {() => {alert('Hello')}}
+                        onPress = {() => {this.sendNofi()}}
                     >
                         <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 1}} style={{height : '100%',borderRadius : 26,flexDirection:'row', alignItems : 'center',justifyContent:'center'}} colors={['#FF00A9' ,'#FF3D81']}>
                                
@@ -135,9 +162,11 @@ const styles = StyleSheet.create({
     ,
     TextInputStyle : {
         width : '100%',
+        height : 50,
         borderBottomWidth : 2,
         borderBottomColor : 'gray',
-        color : '#2F95C3'
+        color : '#2F95C3',
+        
     },
     textStyle : {
         color : '#2F95C3',

@@ -106,7 +106,7 @@ export default class Order extends Component {
       handelLoadMore = async ()  => {
         
         let token = await StoreData.getItem('token');
-        const listDataUser = await axios.get(`${BASE_URL}api/users//getAllUser?page=${this.state.page}&status=0`,{
+        const listDataUser = await axios.get(`${BASE_URL}api/users/getAllUser?page=${this.state.page}&status=0`,{
             headers : {
                 'x-auth-token' : token
             }

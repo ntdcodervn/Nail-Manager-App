@@ -15,7 +15,7 @@ export default class UserItem extends Component {
                 <Image source={{uri : BASE_URL + this.props.item.avatar}} style={{width : 46, height : 46, borderRadius : 10}}></Image>
                 <View style={styles.col_name_email}>
                     <Text style={text_style(16,'#340021')}>{this.props.item.name}</Text>
-                    <Text style={text_style(16,'#340021')}>{this.props.item.email}</Text>
+                    <Text style={text_style(16,'#340021')}>{this.props.item.email.substring(0,20)}...</Text>
                 </View>
                 <View style={styles.col_point}>
                     <Text style={text_style(16,'#340021',0)}>{this.props.item.point} point</Text>

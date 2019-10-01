@@ -1,1 +1,1 @@
-export default BASE_URL = 'https://nailapimanager.herokuapp.com/';
+export default BASE_URL = 'https://nail2go-server.herokuapp.com/';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TouchableOpacity,ScrollView,Image } from 'react-native'
+import {Platform, Text, StyleSheet, View, TouchableOpacity,ScrollView,Image } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import ManagerApp from './../Component/Setting/ManagerApp';
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         height : 60,
         backgroundColor : '#FFFFFF',
         position : 'absolute',
-        bottom : -30,
+        bottom : Platform.OS === 'ios'?0:-30,
         borderColor : 'gray',
        
         borderRadius : 20,

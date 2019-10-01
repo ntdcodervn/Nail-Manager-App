@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
         width : '100%',
         borderBottomWidth : 2,
         borderBottomColor : 'gray',
-        color : '#2F95C3'
+        color : '#2F95C3',
+        height : 50,
     },
     textStyle : {
         color : '#2F95C3',

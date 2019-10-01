@@ -15,9 +15,13 @@ export default class OrderModal extends Component {
     }
 
     setImage = (item) => {
+        console.log(item);
         this.setState({
             item : item
         })
+
+    }
+    componentDidMount = () => {
 
     }
 
@@ -53,10 +57,11 @@ export default class OrderModal extends Component {
         
     }
     setStatusReturnString = () => {
-        if(this.state.item.status === -1) {
+        console.log(this.state.item.status)
+        if(this.state.item.status == -1) {
             return 'Cancelled'
         }
-        else(this.state.item.status === 1)
+        else if(this.state.item.status == 1)
         {
             return 'Paid'
         }
@@ -76,7 +81,6 @@ export default class OrderModal extends Component {
                     <Text style={text_style(24,'#340021',0,12)}>Order Details</Text>
                     <Text style={text_style(14,'#340021',0,12)}>Name : {this.state.item.name}</Text>
                     <Text style={text_style(14,'#340021',0,12)}>Email : {this.state.item.email}</Text>
-                    <Text style={text_style(14,this.state.item === 1 ? '#ba000d' : '#4b830d' ,0,12)}>Status : {this.setStatusReturnString()}</Text>
                     <Text style={text_style(14,'#340021',0,12)}>Coupons : {this.state.item.coupons}%</Text>
                     <Text style={text_style(14,'#340021',0,12)}>Price : {this.state.item.total}$ / discount {this.state.item.coupons}% </Text>
                     

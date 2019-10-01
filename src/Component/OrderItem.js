@@ -26,7 +26,7 @@ export default class OrderItem extends Component {
                 <Image source={{uri : BASE_URL + this.props.item.users.avatar}} style={{width : 46, height : 46, borderRadius : 10}}></Image>
                 <View style={styles.col_name_email}>
                     <Text style={text_style(16,'#340021')}>{this.props.item.users.name}</Text>
-                    <Text style={text_style(16,'#340021')}>{this.props.item.users.email}</Text>
+                    <Text style={text_style(16,'#340021')}>{this.props.item.users.email.substring(0,20)}...</Text>
                 </View>
                 <View style={styles.col_point}>
                 <Text style={text_style(11,'#340021',0)}>{this.props.item.slots.slotName === null ? '' : this.props.item.slots.slotName}</Text>

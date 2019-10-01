@@ -23,19 +23,8 @@ export default class OrderModal extends Component {
 
     payOrder = () => {
         
-        Alert.alert(
-            'Notification Payment Order',
-            'Are you sure you want to pay this order?',
-            [
-                {  
-                    text: 'Cancel',  
-                    onPress: () => console.log('Cancel Pressed'),  
-                    style: 'cancel',  
-                },  
-                {text: 'OK', onPress: () => {alert('Payment success');this.handelActionStatusOrder(1);this.refs.myModal.close();;}},  
-            ]
-
-        )
+        alert('Payment success');this.handelActionStatusOrder(1);this.refs.myModal.close();
+        this.props._refreshListData();
         
     }
     
@@ -51,25 +40,13 @@ export default class OrderModal extends Component {
             
         })
         console.log(changeStatusPay);
-        this.props._refreshListData();
+       
     }
 
     cancelOrder = () => {
        
-        Alert.alert(
-            'Notification Cancel Order',
-            'Are you sure you want to cancel this order?',
-            [
-                {  
-                    text: 'Cancel',  
-                    onPress: () => console.log('Cancel Pressed'),  
-                    style: 'cancel',  
-                },  
-                {text: 'OK', onPress: () => {alert('Cancel Order success');this.handelActionStatusOrder(-1);this.refs.myModal.close();;}},  
-            ]
-
-        )
-        
+        alert('Cancel Order success');this.handelActionStatusOrder(-1);this.refs.myModal.close()
+        this.props._refreshListData();
     }
 
     state = {
@@ -89,7 +66,7 @@ export default class OrderModal extends Component {
                 position = 'center'
                 coverScreen = {true}
                 backdrop = {true}
-                
+                animationDuration = {0}
             >
                 <View style={styles.leftArticle}>
                     <Text style={text_style(24,'#340021',0,12)}>Order Details</Text>
@@ -189,12 +166,14 @@ const styles = StyleSheet.create({
     closeButton : {
         width : 65,
         height : 35,
-       marginLeft:2
+       marginLeft:2,
+       marginTop : 5,
+       fontWeight : 'bold'
        
     },
     buttonContainerClose : {
         
-        flexDirection:'row',
+        flexDirection:'column',
         justifyContent:'space-between',
         alignItems:'center',
        

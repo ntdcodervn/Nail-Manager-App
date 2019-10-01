@@ -110,7 +110,7 @@ export default class Order extends Component {
       handelLoadMore = async ()  => {
         
         let token = await StoreData.getItem('token');
-        const listDataUser = await axios.get(`${BASE_URL}api/users//getAllUser?page=${this.state.page}&status=1`,{
+        const listDataUser = await axios.get(`${BASE_URL}api/users/getAllUser?page=${this.state.page}&status=1`,{
             headers : {
                 'x-auth-token' : token
             }
@@ -240,7 +240,7 @@ export default class Order extends Component {
                             <TouchableOpacity onPress={() => {this._onPressAdd(item)}}>
                                 <View style={{marginBottom : 18}}>
                                     <OrderItem 
-                                    item = {item}
+                                        item = {item}
                                     />
                                 </View>
                             </TouchableOpacity>
